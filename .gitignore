@@ -60,6 +60,9 @@ target/
 \.idea/dataSources\.local\.xml
 
 venv/
+venv*/
+.venv/
+.venv*/
 
 mediafiles/
 
