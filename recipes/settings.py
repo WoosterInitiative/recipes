@@ -25,50 +25,61 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Get vars from .env files
-SECRET_KEY = os.getenv('SECRET_KEY') if os.getenv(
-    'SECRET_KEY') else 'INSECURE_STANDARD_KEY_SET_IN_ENV'
+SECRET_KEY = (
+    os.getenv("SECRET_KEY")
+    if os.getenv("SECRET_KEY")
+    else "INSECURE_STANDARD_KEY_SET_IN_ENV"
+)
 
-DEBUG = bool(int(os.getenv('DEBUG', True)))
-DEBUG_TOOLBAR = bool(int(os.getenv('DEBUG_TOOLBAR', True)))
+DEBUG = bool(int(os.getenv("DEBUG", True)))
+DEBUG_TOOLBAR = bool(int(os.getenv("DEBUG_TOOLBAR", True)))
 
-SOCIAL_DEFAULT_ACCESS = bool(int(os.getenv('SOCIAL_DEFAULT_ACCESS', False)))
-SOCIAL_DEFAULT_GROUP = os.getenv('SOCIAL_DEFAULT_GROUP', 'guest')
+SOCIAL_DEFAULT_ACCESS = bool(int(os.getenv("SOCIAL_DEFAULT_ACCESS", False)))
+SOCIAL_DEFAULT_GROUP = os.getenv("SOCIAL_DEFAULT_GROUP", "guest")
 
-SPACE_DEFAULT_MAX_RECIPES = int(os.getenv('SPACE_DEFAULT_MAX_RECIPES', 0))
-SPACE_DEFAULT_MAX_USERS = int(os.getenv('SPACE_DEFAULT_MAX_USERS', 0))
-SPACE_DEFAULT_MAX_FILES = int(os.getenv('SPACE_DEFAULT_MAX_FILES', 0))
-SPACE_DEFAULT_ALLOW_SHARING = bool(
-    int(os.getenv('SPACE_DEFAULT_ALLOW_SHARING', True)))
+SPACE_DEFAULT_MAX_RECIPES = int(os.getenv("SPACE_DEFAULT_MAX_RECIPES", 0))
+SPACE_DEFAULT_MAX_USERS = int(os.getenv("SPACE_DEFAULT_MAX_USERS", 0))
+SPACE_DEFAULT_MAX_FILES = int(os.getenv("SPACE_DEFAULT_MAX_FILES", 0))
+SPACE_DEFAULT_ALLOW_SHARING = bool(int(os.getenv("SPACE_DEFAULT_ALLOW_SHARING", True)))
 
-INTERNAL_IPS = os.getenv('INTERNAL_IPS').split(
-    ',') if os.getenv('INTERNAL_IPS') else ['127.0.0.1']
+INTERNAL_IPS = (
+    os.getenv("INTERNAL_IPS").split(",") if os.getenv("INTERNAL_IPS") else ["127.0.0.1"]
+)
 
 # allow djangos wsgi server to server mediafiles
-GUNICORN_MEDIA = bool(int(os.getenv('GUNICORN_MEDIA', True)))
+GUNICORN_MEDIA = bool(int(os.getenv("GUNICORN_MEDIA", True)))
 
-if os.getenv('REVERSE_PROXY_AUTH') is not None:
-    print('DEPRECATION WARNING: Environment var "REVERSE_PROXY_AUTH" is deprecated. Please use "REMOTE_USER_AUTH".')
-    REMOTE_USER_AUTH = bool(int(os.getenv('REVERSE_PROXY_AUTH', False)))
+if os.getenv("REVERSE_PROXY_AUTH") is not None:
+    print(
+        'DEPRECATION WARNING: Environment var "REVERSE_PROXY_AUTH" is deprecated. Please use "REMOTE_USER_AUTH".'  # noqa: E501
+    )
+    REMOTE_USER_AUTH = bool(int(os.getenv("REVERSE_PROXY_AUTH", False)))
 else:
-    REMOTE_USER_AUTH = bool(int(os.getenv('REMOTE_USER_AUTH', False)))
+    REMOTE_USER_AUTH = bool(int(os.getenv("REMOTE_USER_AUTH", False)))
 
 # default value for user preference 'comment'
-COMMENT_PREF_DEFAULT = bool(int(os.getenv('COMMENT_PREF_DEFAULT', True)))
-FRACTION_PREF_DEFAULT = bool(int(os.getenv('FRACTION_PREF_DEFAULT', False)))
-KJ_PREF_DEFAULT = bool(int(os.getenv('KJ_PREF_DEFAULT', False)))
-STICKY_NAV_PREF_DEFAULT = bool(int(os.getenv('STICKY_NAV_PREF_DEFAULT', True)))
+COMMENT_PREF_DEFAULT = bool(int(os.getenv("COMMENT_PREF_DEFAULT", True)))
+FRACTION_PREF_DEFAULT = bool(int(os.getenv("FRACTION_PREF_DEFAULT", False)))
+KJ_PREF_DEFAULT = bool(int(os.getenv("KJ_PREF_DEFAULT", False)))
+STICKY_NAV_PREF_DEFAULT = bool(int(os.getenv("STICKY_NAV_PREF_DEFAULT", True)))
 
 # minimum interval that users can set for automatic sync of shopping lists
-SHOPPING_MIN_AUTOSYNC_INTERVAL = int(
-    os.getenv('SHOPPING_MIN_AUTOSYNC_INTERVAL', 5))
+SHOPPING_MIN_AUTOSYNC_INTERVAL = int(os.getenv("SHOPPING_MIN_AUTOSYNC_INTERVAL", 5))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(
-    ',') if os.getenv('ALLOWED_HOSTS') else ['*']
+ALLOWED_HOSTS = (
+    os.getenv("ALLOWED_HOSTS").split(",") if os.getenv("ALLOWED_HOSTS") else ["*"]
+)
 
-if os.getenv('CSRF_TRUSTED_ORIGINS'):
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
+if os.getenv("CSRF_TRUSTED_ORIGINS"):
+    CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(",")
 
-CORS_ORIGIN_ALLOW_ALL = True
+if os.getenv("CORS_ORIGIN_ALLOW_ALL") is not None:
+    print(
+        'DEPRECATION WARNING: Environment var "CORS_ORIGIN_ALLOW_ALL" is deprecated. Please use "CORS_ALLOW_ALL_ORIGINS".'  # noqa: E501
+    )
+    CORS_ALLOW_ALL_ORIGINS = bool(int(os.getenv("CORS_ORIGIN_ALLOW_ALL", True)))
+else:
+    CORS_ALLOW_ALL_ORIGINS = bool(int(os.getenv("CORS_ALLOW_ALL_ORIGINS", True)))
 
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
@@ -78,104 +89,121 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "index"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 365 * 60 * 24 * 60
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-DJANGO_TABLES2_TEMPLATE = 'cookbook/templates/generic/table_template.html'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+DJANGO_TABLES2_TEMPLATE = "cookbook/templates/generic/table_template.html"
 DJANGO_TABLES2_PAGE_RANGE = 8
 
-HCAPTCHA_SITEKEY = os.getenv('HCAPTCHA_SITEKEY', '')
-HCAPTCHA_SECRET = os.getenv('HCAPTCHA_SECRET', '')
+HCAPTCHA_SITEKEY = os.getenv("HCAPTCHA_SITEKEY", "")
+HCAPTCHA_SECRET = os.getenv("HCAPTCHA_SECRET", "")
 
-FDA_API_KEY = os.getenv('FDA_API_KEY', 'DEMO_KEY')
+FDA_API_KEY = os.getenv("FDA_API_KEY", "DEMO_KEY")
 
-SHARING_ABUSE = bool(int(os.getenv('SHARING_ABUSE', False)))
-SHARING_LIMIT = int(os.getenv('SHARING_LIMIT', 0))
+SHARING_ABUSE = bool(int(os.getenv("SHARING_ABUSE", False)))
+SHARING_LIMIT = int(os.getenv("SHARING_LIMIT", 0))
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'cookbook.forms.AllAuthSignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = "cookbook.forms.AllAuthSignupForm"
 
-TERMS_URL = os.getenv('TERMS_URL', '')
-PRIVACY_URL = os.getenv('PRIVACY_URL', '')
-IMPRINT_URL = os.getenv('IMPRINT_URL', '')
-HOSTED = bool(int(os.getenv('HOSTED', False)))
+TERMS_URL = os.getenv("TERMS_URL", "")
+PRIVACY_URL = os.getenv("PRIVACY_URL", "")
+IMPRINT_URL = os.getenv("IMPRINT_URL", "")
+HOSTED = bool(int(os.getenv("HOSTED", False)))
 
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
+MESSAGE_TAGS = {messages.ERROR: "danger"}
 
 # Application definition
 
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.sites',
-    'django.contrib.staticfiles',
-    'django.contrib.postgres',
-    'oauth2_provider',
-    'django_prometheus',
-    'django_tables2',
-    'corsheaders',
-    'crispy_forms',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'django_cleanup.apps.CleanupConfig',
-    'webpack_loader',
-    'django_js_reverse',
-    'hcaptcha',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'cookbook.apps.CookbookConfig',
-    'treebeard',
+    "dal",
+    "dal_select2",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.sites",
+    "django.contrib.staticfiles",
+    "django.contrib.postgres",
+    "oauth2_provider",
+    "django_prometheus",
+    "django_tables2",
+    "corsheaders",
+    "crispy_forms",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django_cleanup.apps.CleanupConfig",
+    "webpack_loader",
+    "django_js_reverse",
+    "hcaptcha",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "cookbook.apps.CookbookConfig",
+    "treebeard",
 ]
 
-PLUGINS_DIRECTORY = os.path.join(BASE_DIR, 'recipes', 'plugins')
+PLUGINS_DIRECTORY = os.path.join(BASE_DIR, "recipes", "plugins")
 PLUGINS = []
 try:
     if os.path.isdir(PLUGINS_DIRECTORY):
         for d in os.listdir(PLUGINS_DIRECTORY):
-            if d != '__pycache__':
+            if d != "__pycache__":
                 try:
-                    apps_path = f'recipes.plugins.{d}.apps'
+                    apps_path = f"recipes.plugins.{d}.apps"
                     __import__(apps_path)
                     app_config_classname = dir(sys.modules[apps_path])[1]
-                    plugin_module = f'recipes.plugins.{d}.apps.{app_config_classname}'
+                    plugin_module = f"recipes.plugins.{d}.apps.{app_config_classname}"
                     plugin_class = getattr(sys.modules[apps_path], app_config_classname)
                     plugin_disabled = False
-                    if hasattr(plugin_class, 'disabled'):
+                    if hasattr(plugin_class, "disabled"):
                         plugin_disabled = plugin_class.disabled
                     if plugin_module not in INSTALLED_APPS and not plugin_disabled:
                         INSTALLED_APPS.append(plugin_module)
 
                         plugin_config = {
-                            'name': plugin_class.verbose_name if hasattr(plugin_class, 'verbose_name') else plugin_class.name,
-                            'version': plugin_class.VERSION if hasattr(plugin_class, 'VERSION') else 'unknown',
-                            'website': plugin_class.website if hasattr(plugin_class, 'website') else '',
-                            'github': plugin_class.github if hasattr(plugin_class, 'github') else '',
-                            'module': f'recipes.plugins.{d}',
-                            'base_path': os.path.join(BASE_DIR, 'recipes', 'plugins', d),
-                            'base_url': plugin_class.base_url,
-                            'bundle_name': plugin_class.bundle_name if hasattr(plugin_class, 'bundle_name') else '',
-                            'api_router_name': plugin_class.api_router_name if hasattr(plugin_class, 'api_router_name') else '',
-                            'nav_main': plugin_class.nav_main if hasattr(plugin_class, 'nav_main') else '',
-                            'nav_dropdown': plugin_class.nav_dropdown if hasattr(plugin_class, 'nav_dropdown') else '',
+                            "name": plugin_class.verbose_name
+                            if hasattr(plugin_class, "verbose_name")
+                            else plugin_class.name,
+                            "version": plugin_class.VERSION
+                            if hasattr(plugin_class, "VERSION")
+                            else "unknown",
+                            "website": plugin_class.website
+                            if hasattr(plugin_class, "website")
+                            else "",
+                            "github": plugin_class.github
+                            if hasattr(plugin_class, "github")
+                            else "",
+                            "module": f"recipes.plugins.{d}",
+                            "base_path": os.path.join(
+                                BASE_DIR, "recipes", "plugins", d
+                            ),
+                            "base_url": plugin_class.base_url,
+                            "bundle_name": plugin_class.bundle_name
+                            if hasattr(plugin_class, "bundle_name")
+                            else "",
+                            "api_router_name": plugin_class.api_router_name
+                            if hasattr(plugin_class, "api_router_name")
+                            else "",
+                            "nav_main": plugin_class.nav_main
+                            if hasattr(plugin_class, "nav_main")
+                            else "",
+                            "nav_dropdown": plugin_class.nav_dropdown
+                            if hasattr(plugin_class, "nav_dropdown")
+                            else "",
                         }
                         PLUGINS.append(plugin_config)
-                        print(f'PLUGIN {d} loaded')
+                        print(f"PLUGIN {d} loaded")
                 except Exception:
                     if DEBUG:
                         traceback.print_exc()
-                        print(f'ERROR failed to initialize plugin {d}')
+                        print(f"ERROR failed to initialize plugin {d}")
 except Exception:
     if DEBUG:
-        print('ERROR failed to initialize plugins')
+        print("ERROR failed to initialize plugins")
 
-SOCIAL_PROVIDERS = os.getenv('SOCIAL_PROVIDERS').split(
-    ',') if os.getenv('SOCIAL_PROVIDERS') else []
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIAL_PROVIDERS = (
+    os.getenv("SOCIAL_PROVIDERS").split(",") if os.getenv("SOCIAL_PROVIDERS") else []
+)
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
 INSTALLED_APPS = INSTALLED_APPS + SOCIAL_PROVIDERS
 
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
@@ -186,264 +214,268 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 try:
     SOCIALACCOUNT_PROVIDERS = ast.literal_eval(
-        os.getenv('SOCIALACCOUNT_PROVIDERS') if os.getenv('SOCIALACCOUNT_PROVIDERS') else '{}')
+        os.getenv("SOCIALACCOUNT_PROVIDERS")
+        if os.getenv("SOCIALACCOUNT_PROVIDERS")
+        else "{}"
+    )
 except ValueError:
     SOCIALACCOUNT_PROVIDERS = json.loads(
-        os.getenv('SOCIALACCOUNT_PROVIDERS').replace("'", '"') if os.getenv('SOCIALACCOUNT_PROVIDERS') else '{}')
+        os.getenv("SOCIALACCOUNT_PROVIDERS").replace("'", '"')
+        if os.getenv("SOCIALACCOUNT_PROVIDERS")
+        else "{}"
+    )
 
-SESSION_COOKIE_DOMAIN = os.getenv('SESSION_COOKIE_DOMAIN', None)
-SESSION_COOKIE_NAME = os.getenv('SESSION_COOKIE_NAME', 'sessionid')
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN", None)
+SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME", "sessionid")
 
-ENABLE_SIGNUP = bool(int(os.getenv('ENABLE_SIGNUP', False)))
+ENABLE_SIGNUP = bool(int(os.getenv("ENABLE_SIGNUP", False)))
 
-ENABLE_METRICS = bool(int(os.getenv('ENABLE_METRICS', False)))
+ENABLE_METRICS = bool(int(os.getenv("ENABLE_METRICS", False)))
 
-ENABLE_PDF_EXPORT = bool(int(os.getenv('ENABLE_PDF_EXPORT', False)))
-EXPORT_FILE_CACHE_DURATION = int(os.getenv('EXPORT_FILE_CACHE_DURATION', 600))
+ENABLE_PDF_EXPORT = bool(int(os.getenv("ENABLE_PDF_EXPORT", False)))
+EXPORT_FILE_CACHE_DURATION = int(os.getenv("EXPORT_FILE_CACHE_DURATION", 600))
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cookbook.helper.scope_middleware.ScopeMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "cookbook.helper.scope_middleware.ScopeMiddleware",
 ]
 
 if DEBUG_TOOLBAR:
-    MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    INSTALLED_APPS += ('debug_toolbar',)
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    INSTALLED_APPS += ("debug_toolbar",)
 
-SORT_TREE_BY_NAME = bool(int(os.getenv('SORT_TREE_BY_NAME', False)))
-DISABLE_TREE_FIX_STARTUP = bool(
-    int(os.getenv('DISABLE_TREE_FIX_STARTUP', False)))
+SORT_TREE_BY_NAME = bool(int(os.getenv("SORT_TREE_BY_NAME", False)))
+DISABLE_TREE_FIX_STARTUP = bool(int(os.getenv("DISABLE_TREE_FIX_STARTUP", False)))
 
-if bool(int(os.getenv('SQL_DEBUG', False))):
-    MIDDLEWARE += ('recipes.middleware.SqlPrintingMiddleware',)
+if bool(int(os.getenv("SQL_DEBUG", False))):
+    MIDDLEWARE += ("recipes.middleware.SqlPrintingMiddleware",)
 
 if ENABLE_METRICS:
-    MIDDLEWARE += 'django_prometheus.middleware.PrometheusAfterMiddleware',
+    MIDDLEWARE += ("django_prometheus.middleware.PrometheusAfterMiddleware",)
 
 # Auth related settings
 AUTHENTICATION_BACKENDS = []
 
 # LDAP
-LDAP_AUTH = bool(os.getenv('LDAP_AUTH', False))
+LDAP_AUTH = bool(os.getenv("LDAP_AUTH", False))
 if LDAP_AUTH:
     import ldap
     from django_auth_ldap.config import LDAPSearch
 
-    AUTHENTICATION_BACKENDS.append('django_auth_ldap.backend.LDAPBackend')
-    AUTH_LDAP_SERVER_URI = os.getenv('AUTH_LDAP_SERVER_URI')
-    AUTH_LDAP_START_TLS = bool(int(os.getenv('AUTH_LDAP_START_TLS', False)))
-    AUTH_LDAP_BIND_DN = os.getenv('AUTH_LDAP_BIND_DN')
-    AUTH_LDAP_BIND_PASSWORD = os.getenv('AUTH_LDAP_BIND_PASSWORD')
+    AUTHENTICATION_BACKENDS.append("django_auth_ldap.backend.LDAPBackend")
+    AUTH_LDAP_SERVER_URI = os.getenv("AUTH_LDAP_SERVER_URI")
+    AUTH_LDAP_START_TLS = bool(int(os.getenv("AUTH_LDAP_START_TLS", False)))
+    AUTH_LDAP_BIND_DN = os.getenv("AUTH_LDAP_BIND_DN")
+    AUTH_LDAP_BIND_PASSWORD = os.getenv("AUTH_LDAP_BIND_PASSWORD")
     AUTH_LDAP_USER_SEARCH = LDAPSearch(
-        os.getenv('AUTH_LDAP_USER_SEARCH_BASE_DN'),
+        os.getenv("AUTH_LDAP_USER_SEARCH_BASE_DN"),
         ldap.SCOPE_SUBTREE,
-        os.getenv('AUTH_LDAP_USER_SEARCH_FILTER_STR', '(uid=%(user)s)'),
+        os.getenv("AUTH_LDAP_USER_SEARCH_FILTER_STR", "(uid=%(user)s)"),
     )
-    AUTH_LDAP_USER_ATTR_MAP = ast.literal_eval(os.getenv('AUTH_LDAP_USER_ATTR_MAP')) if os.getenv('AUTH_LDAP_USER_ATTR_MAP') else {
-        'first_name': 'givenName',
-        'last_name': 'sn',
-        'email': 'mail',
-    }
+    AUTH_LDAP_USER_ATTR_MAP = (
+        ast.literal_eval(os.getenv("AUTH_LDAP_USER_ATTR_MAP"))
+        if os.getenv("AUTH_LDAP_USER_ATTR_MAP")
+        else {
+            "first_name": "givenName",
+            "last_name": "sn",
+            "email": "mail",
+        }
+    )
     AUTH_LDAP_ALWAYS_UPDATE_USER = bool(
-        int(os.getenv('AUTH_LDAP_ALWAYS_UPDATE_USER', True)))
-    AUTH_LDAP_CACHE_TIMEOUT = int(os.getenv('AUTH_LDAP_CACHE_TIMEOUT', 3600))
-    if 'AUTH_LDAP_TLS_CACERTFILE' in os.environ:
+        int(os.getenv("AUTH_LDAP_ALWAYS_UPDATE_USER", True))
+    )
+    AUTH_LDAP_CACHE_TIMEOUT = int(os.getenv("AUTH_LDAP_CACHE_TIMEOUT", 3600))
+    if "AUTH_LDAP_TLS_CACERTFILE" in os.environ:
         AUTH_LDAP_GLOBAL_OPTIONS = {
-            ldap.OPT_X_TLS_CACERTFILE: os.getenv('AUTH_LDAP_TLS_CACERTFILE')}
+            ldap.OPT_X_TLS_CACERTFILE: os.getenv("AUTH_LDAP_TLS_CACERTFILE")
+        }
     if DEBUG:
         LOGGING = {
             "version": 1,
             "disable_existing_loggers": False,
             "handlers": {"console": {"class": "logging.StreamHandler"}},
-            "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
+            "loggers": {
+                "django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}
+            },
         }
 
 AUTHENTICATION_BACKENDS += [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # django allauth site id
-SITE_ID = int(os.getenv('ALLAUTH_SITE_ID', 1))
+SITE_ID = int(os.getenv("ALLAUTH_SITE_ID", 1))
 
-ACCOUNT_ADAPTER = 'cookbook.helper.AllAuthCustomAdapter'
+ACCOUNT_ADAPTER = "cookbook.helper.AllAuthCustomAdapter"
 
 if REMOTE_USER_AUTH:
-    MIDDLEWARE.insert(8, 'recipes.middleware.CustomRemoteUser')
-    AUTHENTICATION_BACKENDS.append(
-        'django.contrib.auth.backends.RemoteUserBackend')
+    MIDDLEWARE.insert(8, "recipes.middleware.CustomRemoteUser")
+    AUTHENTICATION_BACKENDS.append("django.contrib.auth.backends.RemoteUserBackend")
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'bookmarklet': 'only access to bookmarklet'}
+    "SCOPES": {
+        "read": "Read scope",
+        "write": "Write scope",
+        "bookmarklet": "only access to bookmarklet",
+    }
 }
-READ_SCOPE = 'read'
-WRITE_SCOPE = 'write'
+READ_SCOPE = "read"
+WRITE_SCOPE = "write"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.BasicAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "rest_framework.authentication.BasicAuthentication",
     ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
 }
 
-ROOT_URLCONF = 'recipes.urls'
+ROOT_URLCONF = "recipes.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'cookbook', 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',
-                'cookbook.helper.context_processors.context_settings',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "cookbook", "templates"),
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.media",
+                "cookbook.helper.context_processors.context_settings",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'recipes.wsgi.application'
+WSGI_APPLICATION = "recipes.wsgi.application"
 
 # Database
 # Load settings from env files
-if os.getenv('DATABASE_URL'):
+if os.getenv("DATABASE_URL"):
     match = re.match(
-        r'(?P<schema>\w+):\/\/(?P<user>[\w\d_-]+)(:(?P<password>[^@]+))?@(?P<host>[^:/]+)(:(?P<port>\d+))?(\/(?P<database>[\w\d\/\._-]+))?',
-        os.getenv('DATABASE_URL')
+        r"(?P<schema>\w+):\/\/(?P<user>[\w\d_-]+)(:(?P<password>[^@]+))?@(?P<host>[^:/]+)(:(?P<port>\d+))?(\/(?P<database>[\w\d\/\._-]+))?",
+        os.getenv("DATABASE_URL"),
     )
     settings = match.groupdict()
-    schema = settings['schema']
-    if schema.startswith('postgres'):
-        engine = 'django.db.backends.postgresql'
-    elif schema == 'sqlite':
-        engine = 'django.db.backends.sqlite3'
+    schema = settings["schema"]
+    if schema.startswith("postgres"):
+        engine = "django.db.backends.postgresql"
+    elif schema == "sqlite":
+        engine = "django.db.backends.sqlite3"
     else:
         raise Exception("Unsupported database schema: '%s'" % schema)
 
     DATABASES = {
-        'default': {
-            'ENGINE': engine,
-            'OPTIONS': ast.literal_eval(os.getenv('DB_OPTIONS')) if os.getenv('DB_OPTIONS') else {},
-            'HOST': settings['host'],
-            'PORT': settings['port'],
-            'USER': settings['user'],
-            'PASSWORD': settings['password'],
-            'NAME': settings['database'],
-            'CONN_MAX_AGE': 600,
+        "default": {
+            "ENGINE": engine,
+            "OPTIONS": ast.literal_eval(os.getenv("DB_OPTIONS"))
+            if os.getenv("DB_OPTIONS")
+            else {},
+            "HOST": settings["host"],
+            "PORT": settings["port"],
+            "USER": settings["user"],
+            "PASSWORD": settings["password"],
+            "NAME": settings["database"],
+            "CONN_MAX_AGE": 600,
         }
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': os.getenv('DB_ENGINE') if os.getenv('DB_ENGINE') else 'django.db.backends.sqlite3',
-            'OPTIONS': ast.literal_eval(os.getenv('DB_OPTIONS')) if os.getenv('DB_OPTIONS') else {},
-            'HOST': os.getenv('POSTGRES_HOST'),
-            'PORT': os.getenv('POSTGRES_PORT'),
-            'USER': os.getenv('POSTGRES_USER'),
-            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-            'NAME': os.getenv('POSTGRES_DB') if os.getenv('POSTGRES_DB') else 'db.sqlite3',
-            'CONN_MAX_AGE': 60,
+        "default": {
+            "ENGINE": os.getenv("DB_ENGINE")
+            if os.getenv("DB_ENGINE")
+            else "django.db.backends.sqlite3",
+            "OPTIONS": ast.literal_eval(os.getenv("DB_OPTIONS"))
+            if os.getenv("DB_OPTIONS")
+            else {},
+            "HOST": os.getenv("POSTGRES_HOST"),
+            "PORT": os.getenv("POSTGRES_PORT"),
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "NAME": os.getenv("POSTGRES_DB")
+            if os.getenv("POSTGRES_DB")
+            else "db.sqlite3",
+            "CONN_MAX_AGE": 60,
         }
     }
 
-# Local testing DB
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'HOST': 'localhost',
-#         'PORT': 5432,
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',  # set to local pw
-#         'NAME': 'tandoor_app',
-#         'CONN_MAX_AGE': 600,
-#     }
-# }
-
-# SQLite testing DB
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'OPTIONS': ast.literal_eval(os.getenv('DB_OPTIONS')) if os.getenv('DB_OPTIONS') else {},
-#         'NAME': 'db.sqlite3',
-#         'CONN_MAX_AGE': 600,
-#     }
-# }
-
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'default',
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "default",
     }
 }
 
 # Vue webpack settings
-VUE_DIR = os.path.join(BASE_DIR, 'vue')
+VUE_DIR = os.path.join(BASE_DIR, "vue")
 
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'vue/',  # must end with slash
-        'STATS_FILE': os.path.join(VUE_DIR, 'webpack-stats.json'),
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "BUNDLE_DIR_NAME": "vue/",  # must end with slash
+        "STATS_FILE": os.path.join(VUE_DIR, "webpack-stats.json"),
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": None,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     },
 }
 
 for p in PLUGINS:
-    if p['bundle_name'] != '':
-        WEBPACK_LOADER[p['bundle_name']] = {
-            'CACHE': not DEBUG,
-            'BUNDLE_DIR_NAME': f'vue/',  # must end with slash
-            'STATS_FILE': os.path.join(p["base_path"], 'vue', 'webpack-stats.json'),
-            'POLL_INTERVAL': 0.1,
-            'TIMEOUT': None,
-            'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+    if p["bundle_name"] != "":
+        WEBPACK_LOADER[p["bundle_name"]] = {
+            "CACHE": not DEBUG,
+            "BUNDLE_DIR_NAME": "vue/",  # must end with slash
+            "STATS_FILE": os.path.join(p["base_path"], "vue", "webpack-stats.json"),
+            "POLL_INTERVAL": 0.1,
+            "TIMEOUT": None,
+            "IGNORE": [r".+\.hot-update.js", r".+\.map"],
         }
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = "en"
 
-TIME_ZONE = os.getenv('TIMEZONE') if os.getenv('TIMEZONE') else 'Europe/Berlin'
+TIME_ZONE = os.getenv("TIMEZONE") if os.getenv("TIMEZONE") else "Europe/Berlin"
 
 USE_I18N = True
 
@@ -452,63 +484,64 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('hy', _('Armenian ')),
-    ('bg', _('Bulgarian')),
-    ('ca', _('Catalan')),
-    ('cs', _('Czech')),
-    ('da', _('Danish')),
-    ('nl', _('Dutch')),
-    ('en', _('English')),
-    ('fr', _('French')),
-    ('de', _('German')),
-    ('hu', _('Hungarian')),
-    ('it', _('Italian')),
-    ('lv', _('Latvian')),
-    ('nb', _('Norwegian ')),
-    ('pl', _('Polish')),
-    ('ru', _('Russian')),
-    ('es', _('Spanish')),
-    ('sv', _('Swedish')),
+    ("hy", _("Armenian ")),
+    ("bg", _("Bulgarian")),
+    ("ca", _("Catalan")),
+    ("cs", _("Czech")),
+    ("da", _("Danish")),
+    ("nl", _("Dutch")),
+    ("en", _("English")),
+    ("fr", _("French")),
+    ("de", _("German")),
+    ("hu", _("Hungarian")),
+    ("it", _("Italian")),
+    ("lv", _("Latvian")),
+    ("nb", _("Norwegian ")),
+    ("pl", _("Polish")),
+    ("ru", _("Russian")),
+    ("es", _("Spanish")),
+    ("sv", _("Swedish")),
 ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-SCRIPT_NAME = os.getenv('SCRIPT_NAME', '')
-# path for django_js_reverse to generate the javascript file containing all urls. Only done because the default command (collectstatic_js_reverse) fails to update the manifest
-JS_REVERSE_OUTPUT_PATH = os.path.join(
-    BASE_DIR, "cookbook/static/django_js_reverse")
-JS_REVERSE_SCRIPT_PREFIX = os.getenv('JS_REVERSE_SCRIPT_PREFIX', SCRIPT_NAME)
+SCRIPT_NAME = os.getenv("SCRIPT_NAME", "")
+# path for django_js_reverse to generate the javascript file containing all urls.
+# Only done because the default command (collectstatic_js_reverse) fails
+# to update the manifest
+JS_REVERSE_OUTPUT_PATH = os.path.join(BASE_DIR, "cookbook/static/django_js_reverse")
+JS_REVERSE_SCRIPT_PREFIX = os.getenv("JS_REVERSE_SCRIPT_PREFIX", SCRIPT_NAME)
 
-STATIC_URL = os.getenv('STATIC_URL', '/static/')
+STATIC_URL = os.getenv("STATIC_URL", "/static/")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-AWS_ENABLED = True if os.getenv('S3_ACCESS_KEY', False) else False
+AWS_ENABLED = True if os.getenv("S3_ACCESS_KEY", False) else False
 
-if os.getenv('S3_ACCESS_KEY', ''):
-    DEFAULT_FILE_STORAGE = 'cookbook.helper.CustomStorageClass.CachedS3Boto3Storage'
+if os.getenv("S3_ACCESS_KEY", ""):
+    DEFAULT_FILE_STORAGE = "cookbook.helper.CustomStorageClass.CachedS3Boto3Storage"
 
-    AWS_ACCESS_KEY_ID = os.getenv('S3_ACCESS_KEY', '')
-    AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY', '')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', '')
-    AWS_QUERYSTRING_AUTH = bool(int(os.getenv('S3_QUERYSTRING_AUTH', True)))
-    AWS_QUERYSTRING_EXPIRE = int(os.getenv('S3_QUERYSTRING_EXPIRE', 3600))
-    AWS_S3_SIGNATURE_VERSION = os.getenv('S3_SIGNATURE_VERSION', 's3v4')
-    AWS_S3_REGION_NAME = os.getenv('S3_REGION_NAME', None)
+    AWS_ACCESS_KEY_ID = os.getenv("S3_ACCESS_KEY", "")
+    AWS_SECRET_ACCESS_KEY = os.getenv("S3_SECRET_ACCESS_KEY", "")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("S3_BUCKET_NAME", "")
+    AWS_QUERYSTRING_AUTH = bool(int(os.getenv("S3_QUERYSTRING_AUTH", True)))
+    AWS_QUERYSTRING_EXPIRE = int(os.getenv("S3_QUERYSTRING_EXPIRE", 3600))
+    AWS_S3_SIGNATURE_VERSION = os.getenv("S3_SIGNATURE_VERSION", "s3v4")
+    AWS_S3_REGION_NAME = os.getenv("S3_REGION_NAME", None)
 
-    if os.getenv('S3_ENDPOINT_URL', ''):
-        AWS_S3_ENDPOINT_URL = os.getenv('S3_ENDPOINT_URL', '')
-    if os.getenv('S3_CUSTOM_DOMAIN', ''):
-        AWS_S3_CUSTOM_DOMAIN = os.getenv('S3_CUSTOM_DOMAIN', '')
+    if os.getenv("S3_ENDPOINT_URL", ""):
+        AWS_S3_ENDPOINT_URL = os.getenv("S3_ENDPOINT_URL", "")
+    if os.getenv("S3_CUSTOM_DOMAIN", ""):
+        AWS_S3_CUSTOM_DOMAIN = os.getenv("S3_CUSTOM_DOMAIN", "")
 
-    MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
+    MEDIA_URL = os.getenv("MEDIA_URL", "/media/")
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 else:
-    MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
+    MEDIA_URL = os.getenv("MEDIA_URL", "/media/")
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 # Serve static files with gzip
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 TEST_RUNNER = "cookbook.helper.CustomTestRunner.CustomTestRunner"
 
@@ -520,19 +553,21 @@ TEST_RUNNER = "cookbook.helper.CustomTestRunner.CustomTestRunner"
 CORS_ORIGIN_ALLOW_ALL = True
 
 # enable CORS only for bookmarklet api and only for posts, get and options
-CORS_URLS_REGEX = r'^/api/bookmarklet-import.*$'
-CORS_ALLOW_METHODS = ['GET', 'OPTIONS', 'POST']
-# future versions of django will make undeclared default django.db.models.BigAutoField which will force migrations on all models
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+CORS_URLS_REGEX = r"^/api/bookmarklet-import.*$"
+CORS_ALLOW_METHODS = ["GET", "OPTIONS", "POST"]
+# future versions of django will make undeclared default django.db.models.BigAutoField
+# which will force migrations on all models
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-EMAIL_HOST = os.getenv('EMAIL_HOST', '')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT', 25))
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS', False)))
-EMAIL_USE_SSL = bool(int(os.getenv('EMAIL_USE_SSL', False)))
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 25))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = bool(int(os.getenv("EMAIL_USE_TLS", False)))
+EMAIL_USE_SSL = bool(int(os.getenv("EMAIL_USE_SSL", False)))
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "webmaster@localhost")
 ACCOUNT_EMAIL_SUBJECT_PREFIX = os.getenv(
-    'ACCOUNT_EMAIL_SUBJECT_PREFIX', '[Tandoor Recipes] ')  # allauth sender prefix
+    "ACCOUNT_EMAIL_SUBJECT_PREFIX", "[Tandoor Recipes] "
+)  # allauth sender prefix
 
 mimetypes.add_type("text/javascript", ".js", True)
