@@ -10,5 +10,8 @@
         "editor.defaultFormatter": "eeyore.yapf",
     },
     "yapf.args": [],
-    "isort.args": []
+    "isort.args": [],
+    "[toml]": {
+        "editor.defaultFormatter": "tombi-toml.tombi"
+    }
 }
